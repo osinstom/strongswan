@@ -276,6 +276,7 @@ ARG_ENABL_SET([save-keys],      [enable development/debugging plugin that saves 
 ARG_ENABL_SET([systime-fix],    [enable plugin to handle cert lifetimes with invalid system time gracefully.])
 ARG_ENABL_SET([test-vectors],   [enable plugin providing crypto test vectors.])
 ARG_DISBL_SET([updown],         [disable updown firewall script plugin.])
+ARG_ENABL_SET([s2b-3gpp],       [enable plugin implementing GTP-based S2b interface of 3GPP mobile core.])
 # programs/components
 ARG_ENABL_SET([aikgen],         [enable AIK generator for TPM 1.2.])
 ARG_DISBL_SET([charon],         [disable the IKEv1/IKEv2 keying daemon charon.])
@@ -1505,6 +1506,7 @@ ADD_PLUGIN([uci],                  [c charon])
 ADD_PLUGIN([addrblock],            [c charon])
 ADD_PLUGIN([unity],                [c charon])
 ADD_PLUGIN([counters],             [c charon])
+ADD_PLUGIN([s2b-3gpp],             [c charon])
 
 AC_SUBST(charon_plugins)
 AC_SUBST(starter_plugins)
@@ -1682,6 +1684,8 @@ AM_CONDITIONAL(USE_RESOLVE, test x$resolve = xtrue)
 AM_CONDITIONAL(USE_ATTR, test x$attr = xtrue)
 AM_CONDITIONAL(USE_ATTR_SQL, test x$attr_sql = xtrue)
 AM_CONDITIONAL(USE_COUNTERS, test x$counters = xtrue)
+AM_CONDITIONAL(USE_S2B_3GPP, test x$s2b_3gpp = xtrue)
+
 
 #  other options
 # ---------------
@@ -1982,6 +1986,7 @@ AC_CONFIG_FILES([
 	src/libcharon/plugins/resolve/Makefile
 	src/libcharon/plugins/attr/Makefile
 	src/libcharon/plugins/attr_sql/Makefile
+	src/libcharon/plugins/s2b_3gpp/Makefile
 	src/libcharon/tests/Makefile
 	src/libtpmtss/Makefile
 	src/libtpmtss/plugins/tpm/Makefile

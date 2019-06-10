@@ -733,6 +733,13 @@ if MONOLITHIC
 endif
 endif
 
+if USE_S2B_3GPP
+  SUBDIRS += plugins/s2b_3gpp
+if MONOLITHIC
+  libcharon_la_LIBADD += plugins/demo/libstrongswan-s2b-3gpp.la
+endif
+endif
+
 if MONOLITHIC
   SUBDIRS += .
 endif
