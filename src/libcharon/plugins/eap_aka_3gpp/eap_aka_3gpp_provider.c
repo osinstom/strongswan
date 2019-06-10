@@ -117,9 +117,19 @@ METHOD(simaka_provider_t, get_quintuplet, bool,
 	memcpy(autn + AKA_SQN_LEN, amf, AKA_AMF_LEN);
 	memcpy(autn + AKA_SQN_LEN + AKA_AMF_LEN, maca, AKA_MAC_LEN);
 	DBG3(DBG_IKE, "AUTN %b", autn, AKA_AUTN_LEN);
+    DBG3(DBG_IKE, "Current SQN %b",
+         this->sqn, AKA_SQN_LEN);
 
-	chunk_increment(chunk_create(this->sqn, AKA_SQN_LEN));
+	chunk_t sqn_chunk = chunk_create(this->sqn, AKA_SQN_LEN);
+	int i = 0;
+	for(i = 0; i < 32; i++) {
+		chunk_increment(sqn_chunk);
+	}
 
+//	chunk_increment(chunk_create(this->sqn, AKA_SQN_LEN));
+//    chunk_create(this->sqn, AKA_SQN_LEN);
+    DBG3(DBG_IKE, "Incremented SQN %b",
+         this->sqn, AKA_SQN_LEN);
 	return TRUE;
 }
 
@@ -163,9 +173,21 @@ METHOD(simaka_provider_t, resync, bool,
 			 macs, AKA_MAC_LEN, xmacs, AKA_MAC_LEN);
 		return FALSE;
 	}
+
+    DBG3(DBG_IKE, "received SQN %b\ncurrent SQN %b",
+         sqn, AKA_SQN_LEN, this->sqn, AKA_SQN_LEN);
+	DBG1(DBG_IKE, "Update stored SQN to received SQN + 1");
+
 	/* update stored SQN to received SQN + 1 */
 	memcpy(this->sqn, sqn, AKA_SQN_LEN);
-	chunk_increment(chunk_create(this->sqn, AKA_SQN_LEN));
+	chunk_t sqn_chunk = chunk_create(this->sqn, AKA_SQN_LEN);
+	int i = 0;
+	for(i = 0; i < 32; i++) {
+		chunk_increment(sqn_chunk);
+	}
+
+    DBG3(DBG_IKE, "Updated SQN %b",
+         this->sqn, AKA_SQN_LEN);
 	return TRUE;
 }
 
