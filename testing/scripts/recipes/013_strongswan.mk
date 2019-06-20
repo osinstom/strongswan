@@ -105,7 +105,8 @@ CONFIG_OPTS = \
 	--enable-newhope \
 	--enable-systemd \
 	--enable-counters \
-	--enable-save-keys
+	--enable-save-keys \
+	--enable-s2b-3gpp
 
 export ADA_PROJECT_PATH=/usr/local/ada/lib/gnat
 

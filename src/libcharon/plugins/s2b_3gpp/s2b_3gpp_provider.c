@@ -17,14 +17,13 @@ METHOD(listener_t, message, bool,
        private_s2b_3gpp_provider_t *this,
        ike_sa_t *ike_sa, message_t *message, bool incoming, bool plain)
 {
-
-
+    DBG3(DBG_IKE, "Plugin S2b-3GPP");
+    DBG3(DBG_IKE, "Plugin received message, is incoming? %d", incoming);
     return TRUE;
 }
 
 
-METHOD(s2b_3gpp_provider_t, destroy, void,
-       private_s2b_3gpp_provider_t *this)
+METHOD(s2b_3gpp_provider_t, destroy, void, private_s2b_3gpp_provider_t *this)
 {
     free(this);
 }
@@ -36,7 +35,7 @@ s2b_3gpp_provider_t *s2b_3gpp_provider_create()
     INIT(this,
          .public = {
                  .listener = {
-                 .message = _message,
+                         .message = _message,
          },
          .destroy = _destroy,
          },
